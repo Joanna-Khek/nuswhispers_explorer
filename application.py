@@ -45,8 +45,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Read Data
-data = pd.read_pickle("pickle\\main_data.pkl")
-data_clean = pd.read_pickle("pickle\\corpus.pkl")
+data = pd.read_pickle("pickle/main_data.pkl")
+data_clean = pd.read_pickle("pickle/corpus.pkl")
 
 data["Share"] = data["Share"].apply(lambda x: int(x))
     
