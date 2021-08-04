@@ -1,6 +1,7 @@
 gunicorn
 plotly
 flask
+flask_session
 matplotlib
 seaborn
 pygal

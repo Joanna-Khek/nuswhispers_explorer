@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, flash, redirect, render_template, request, session
+from flask_session import Session
 from tempfile import mkdtemp
 
 import pandas as pd
@@ -15,14 +16,16 @@ import plotly.io as pio
 import seaborn as sns
 import pygal
 from pygal.style import Style
-from wordcloud import WordCloud
+from wordcloud import WordCloud, ImageColorGenerator
+from PIL import Image
+from IPython.display import display, HTML
 from sklearn.feature_extraction import text 
 import spacy
 import io
 import base64
 from base64 import b64encode
 
-
+os.chdir("C:\\Users\\joann\\OneDrive\\Desktop\\NUSWhispers Scrapper")
 # Configure application
 app = Flask(__name__)
 
@@ -44,8 +47,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Read Data
-data = pd.read_pickle("..\\pickle\\main_data.pkl")
-data_clean = pd.read_pickle("..\\pickle\\corpus.pkl")
+data = pd.read_pickle("pickle\\main_data.pkl")
+data_clean = pd.read_pickle("pickle\\corpus.pkl")
 
 data["Share"] = data["Share"].apply(lambda x: int(x))
     
@@ -209,7 +212,7 @@ def analysis():
         return np.random.choice(color_list)  
 
     def get_wordcloud(text):
-        pil_img = WordCloud(stopwords=stopwords_list, font_path='../dashboard/static/font/Gobold Regular.otf', 
+        pil_img = WordCloud(stopwords=stopwords_list, font_path='static/font/Gobold Regular.otf', 
                             background_color="white", color_func=setListOfcolor_func,
                             max_words=1000, max_font_size=125, random_state=101).generate(text=text).to_image()
         img = io.BytesIO()
