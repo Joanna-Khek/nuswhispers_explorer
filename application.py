@@ -23,7 +23,7 @@ import io
 import base64
 from base64 import b64encode
 
-os.chdir("C:\\Users\\joann\\OneDrive\\Desktop\\NUSWhispers Scrapper")
+
 # Configure application
 app = Flask(__name__)
 
