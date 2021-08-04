@@ -4,6 +4,7 @@ flask==1.1.2
 flask_session
 matplotlib
 seaborn
+sklearn==0.23.2
 pygal
 wordcloud
 spacy==2.2.3
