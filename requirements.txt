@@ -1,0 +1,8 @@
+plotly
+flask
+matplotlib
+seaborn
+pygal
+wordcloud
+spacy
+
