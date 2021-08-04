@@ -1,0 +1,189 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %} 
+
+{% block main %} 
+    <h1> Dashboard </h1>
+    <hr>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-3">
+                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                      <div class="card-header"><strong>Total Confessions</strong></div>
+                      <div class="card-body">
+                        <h5 class="card-title">{{total_confessions}}</h5>
+                      </div>
+                </div>
+            </div>
+            <div class="col col-md-3">
+                 <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                      <div class="card-header"><strong>Maximum Comments</strong></div>
+                      <div class="card-body">
+                        <h5 class="card-title">{{max_comments}}</h5>
+                      </div>
+                 </div>
+            </div>
+            <div class="col col-md-3">
+                 <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                      <div class="card-header"><strong>Maximum Shares</strong></div>
+                      <div class="card-body">
+                        <h5 class="card-title">{{max_shares}}</h5>
+                      </div>
+                    </div>
+            </div>
+            <div class="col col-md-3">
+                 <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                      <div class="card-header"><strong>Maximum Reactions</strong></div>
+                      <div class="card-body">
+                        <h5 class="card-title">{{max_reactions}}</h5>
+                      </div>
+                    </div>
+            </div>
+        </div>
+        
+        <br>
+        <div class="row">
+            <div class="container col col-md-6" align="left">
+                <embed type="image/svg+xml" src={{graph_data_category|safe}} style="max-width:500px"/>
+            </div>
+            
+            <div class="container col col-md-6" align="left">
+                <embed type="image/svg+xml" src={{graph_data_reaction|safe}} style="max-width:500px"/>
+            </div>
+        </div>
+        
+        <br>
+        
+        <div class="row">
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading1">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                    Post with top number of comments
+                  </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_max_comments}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading2">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    Post with top number of shares
+                  </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_max_shares}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading3">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                    Post with top number of reactions
+                  </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_max_reactions}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading4">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                    Post with top number of angry reaction
+                  </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_angry}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading5">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                    Post with top number of care reaction
+                  </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_care}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading6">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                    Post with top number of haha reaction
+                  </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_haha}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading7">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                    Post with top number of like reaction
+                  </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_like}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading8">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                    Post with top number of love reaction
+                  </button>
+                </h2>
+                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_love}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading9">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                    Post with top number of sad reaction
+                  </button>
+                </h2>
+                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_sad}}
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="heading10">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                    Post with top number of wow reaction
+                  </button>
+                </h2>
+                <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    {{post_wow}}
+                  </div>
+                </div>
+              </div>
+       </div>
+         
+    </div>
+        
+
+        
+{% endblock %} 

@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Analysis
+{% endblock %} 
+
+{% block main %} 
+    <h1> Analysis </h1>
+    <hr>
+    
+    <div class="row">
+      <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">What are the main ideas for each topic category?</a>
+          <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">What is the average number of comments, shares and reactions in each topic category?</a>
+          <a class="nav-link" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false">What is the distrbution of total comments, shares and reactions?</a>
+          <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">What is the distribution of comments, shares and reactions in each topic category?</a>
+          <a class="nav-link" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4" aria-selected="false">What is the total number of reactions in topic category?</a>
+         
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+                {% for article in articles %}
+                <div style="padding-bottom: 10px;">
+                    <h3>{{article.category}}</h3>
+                    <img style="padding-bottom: 10px;" src="data:image/png;base64, {{article.image}}" width="500px"> 
+                </div>
+                {% endfor %}
+          
+          </div>
+          <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
+              {% for plot in plots %}
+                <div style="padding-bottom: 10px;">
+                      <img style="padding-bottom: 10px;" src="data:image/png;base64, {{plot}}" width="500px"> 
+                </div>
+              {% endfor %}
+          </div>
+          <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
+                <div class="alert alert-info d-flex align-items-center" role="alert">
+                  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                  <div>
+                    Hover over the legends to see more clearly!
+                  </div>
+                </div>
+              
+                <embed type="image/svg+xml" src={{box_plot_graph_1|safe}} style="max-width:1000px"/>
+                <embed type="image/svg+xml" src={{box_plot_graph_2|safe}} style="max-width:1000px"/>
+                <embed type="image/svg+xml" src={{box_plot_graph_3|safe}} style="max-width:1000px"/>
+                
+                
+                
+          </div>
+          
+          <div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
+              <div class="alert alert-info d-flex align-items-center" role="alert">
+                  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                  <div>
+                    Hover over the legends to see more clearly!
+                  </div>
+              </div>
+    
+              <embed type="image/svg+xml" src={{dot_plot_graph_4|safe}} style="max-width:1000px"/>
+          </div>
+          
+          <div class="tab-pane fade" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab">
+              <div class="alert alert-info d-flex align-items-center" role="alert">
+                  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                  <div>
+                    Interact with the chart to view more details!
+                  </div>
+                  
+              </div>
+              
+              <div>
+                 {{ hist_comments|safe }} 
+              </div>
+              
+              <div>
+                  {{ hist_shares|safe }} 
+              </div>
+                 
+              <div>
+                  {{ hist_reactions|safe }} 
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    
+{% endblock %} 
+
