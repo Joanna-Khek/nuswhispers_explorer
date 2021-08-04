@@ -16,7 +16,7 @@ import plotly.io as pio
 import seaborn as sns
 import pygal
 from pygal.style import Style
-from wordcloud import WordCloud, ImageColorGenerator
+from wordcloud import WordCloud
 from PIL import Image
 from IPython.display import display, HTML
 from sklearn.feature_extraction import text 
