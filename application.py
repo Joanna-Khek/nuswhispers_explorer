@@ -197,7 +197,7 @@ def analysis():
     # --------------------------- WORD CLOUD -------------------------------------- #
     add_stop_words = ["just", "really", "year", "many", 
                   "like", "think", "want", "need", "say", "know", "time",
-                   "tell", "thing", "say", "make", "come", "ask", "feel", "student"]
+                   "tell", "thing", "say", "make", "come", "ask", "feel", "student", "s"]
     stopwords_list = text.ENGLISH_STOP_WORDS.union(add_stop_words)
     
     full_names = ['Advice', 'Ask Prof Ben', 'Funny', 'Lost and Found', 'Nostalgia', 'Rant', 'Romance']
