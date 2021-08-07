@@ -47,6 +47,7 @@ Session(app)
 # Read Data
 data = pd.read_pickle("pickle/main_data.pkl")
 data_clean = pd.read_pickle("pickle/corpus.pkl")
+data_clean_reactions = pd.read_pickle("pickle/corpus_reactions.pkl")
 
 data["Share"] = data["Share"].apply(lambda x: int(x))
     
@@ -229,6 +230,12 @@ def analysis():
         cloud = get_wordcloud(data_clean["Spacy_Lemmatize"][cat])
         clouds.append(Cloud(category=cat, image=cloud))
         
+        
+    reaction_names = ['Angry', 'Care', 'Haha', 'Like', 'Love', 'Sad', 'Wow']
+    reactions = []
+    for reaction in reaction_names:
+        react = get_wordcloud(data_clean_reactions["Spacy_Lemmatize"][reaction])
+        reactions.append(Cloud(category=reaction, image=react))
     # ----------------------------- RADAR PLOT ----------------------------------- #
     sns.set_style("darkgrid")
         
@@ -460,7 +467,8 @@ def analysis():
     div3 = fig.to_html(full_html=False)
    
 
-    return render_template('analysis.html', articles=clouds, plots=list_of_plot_url, 
+    return render_template('analysis.html', articles=clouds, reactions_plot=reactions,  
+                           plots=list_of_plot_url, 
                            box_plot_graph_1 = BOX_PLOT_GRAPH_1,
                            box_plot_graph_2 = BOX_PLOT_GRAPH_2,
                            box_plot_graph_3 = BOX_PLOT_GRAPH_3,

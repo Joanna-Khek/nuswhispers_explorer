@@ -46,10 +46,10 @@ time.sleep(1)
 soup = BeautifulSoup(driver.page_source, "html.parser")
 
 inputElement = driver.find_element_by_id("email")
-inputElement.send_keys('')
+inputElement.send_keys('joanna95@mail2beauty.com')
 
 inputElement = driver.find_element_by_id("pass")
-inputElement.send_keys("")
+inputElement.send_keys("67814097jJ")
 
 driver.find_elements_by_css_selector("button[type*='submit']")[0].click()
 time.sleep(1)
