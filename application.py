@@ -53,7 +53,10 @@ data["Share"] = data["Share"].apply(lambda x: int(x))
     
 @app.route("/")
 def index():
-    return render_template('index.html')
+    # Total Confessions
+    TOTAL_CONFESSIONS = data.shape[0]
+    
+    return render_template('index.html', total_confessions=TOTAL_CONFESSIONS)
 
 @app.route("/dashboard")
 def dashboard():

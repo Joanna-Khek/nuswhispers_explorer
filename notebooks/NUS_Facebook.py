@@ -46,10 +46,10 @@ time.sleep(1)
 soup = BeautifulSoup(driver.page_source, "html.parser")
 
 inputElement = driver.find_element_by_id("email")
-inputElement.send_keys('joanna95@mail2beauty.com')
+inputElement.send_keys('sender.test.08@gmail.com')
 
 inputElement = driver.find_element_by_id("pass")
-inputElement.send_keys("67814097jJ")
+inputElement.send_keys("P@55w0rd!123")
 
 driver.find_elements_by_css_selector("button[type*='submit']")[0].click()
 time.sleep(1)
@@ -94,7 +94,7 @@ def extract_details(start_num, last_num, first_table, see_more, ls_content, ls_r
             reaction_status = "No"
             
         try:
-            comments_table = first_table[i].find_all("span", class_="d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d3f4x2em fe6kdd0r mau55g9w c8b282yb iv3no6db jq4qci2q a3bd9o3v knj5qynh m9osqain")
+            comments_table = first_table[i].find_all("span", class_="d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d3f4x2em fe6kdd0r mau55g9w c8b282yb iv3no6db jq4qci2q a3bd9o3v b1v8xokw m9osqain")
         except:
             print("Comment Status: No")
             comments_status = "No"
@@ -143,9 +143,11 @@ def extract_details(start_num, last_num, first_table, see_more, ls_content, ls_r
         body_table = second_table[i].find_all("div", class_="ecm0bbzt hv4rvrfc e5nlhep0 dati1w0a")[0]
         
         content_words = body_table.find_all("div", class_="j83agx80 cbu4d94t ew0dbk1b irj2b8pg")[0].getText()
-        
-        reference_words = re.search('-#(.*)https://', content_words).group(1).replace(": ", "")
-        
+        try:
+            reference_words = re.search('-#(.*)https://', content_words).group(1).replace(": ", "")
+        except:
+            reference_words = re.search('#(.*):', content_words).group(1)
+            
         print("#{}".format(reference_words))
         print("Reactions: {}".format(reaction_temp))
         print("Comments: {}".format(comments_num))
