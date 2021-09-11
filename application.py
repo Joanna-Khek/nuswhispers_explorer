@@ -22,7 +22,7 @@ import spacy
 import io
 import base64
 from base64 import b64encode
-
+from datetime import datetime
 
 # Configure application
 app = Flask(__name__)
@@ -45,18 +45,26 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Read Data
-data = pd.read_pickle("pickle/main_data.pkl")
+data_total = pd.read_pickle("pickle/main_data.pkl")
 data_clean = pd.read_pickle("pickle/corpus.pkl")
 data_clean_reactions = pd.read_pickle("pickle/corpus_reactions.pkl")
+month = datetime.now().month - 1
 
-data["Share"] = data["Share"].apply(lambda x: int(x))
-    
+data_total = data_total.rename(columns={"Date_Clean": "Date"})
+
+data_total["Date"] = pd.to_datetime(data_total["Date"])
+data_total["Date"] = data_total["Date"].apply(lambda x: x.date())
+data_total["Month"] = data_total["Date"].apply(lambda x: x.month)
+data_total["Share"] = data_total["Share"].apply(lambda x: int(x))
+
+data = data_total[data_total["Month"] == month]
+
 @app.route("/")
 def index():
     # Total Confessions
-    TOTAL_CONFESSIONS = data.shape[0]
-    
-    return render_template('index.html', total_confessions=TOTAL_CONFESSIONS)
+    TOTAL_CONFESSIONS = data_total.shape[0]
+    TOTAL_MONTH = data.shape[0]
+    return render_template('index.html', total_confessions=TOTAL_CONFESSIONS, total_month=TOTAL_MONTH)
 
 @app.route("/dashboard")
 def dashboard():
@@ -149,7 +157,7 @@ def explore():
     # Define Categories
     REACTION_TYPE = ["Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow", "No Reactions"]
     CATEGORY_TYPE = ["Advice", "Ask Prof Ben", "Funny", "Lost and Found", "Nostalgia", "Rant", "Romance", "No Category"]
-    SORT_TYPE = ["Comment", "Share", "Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow", "Total Reactions"]
+    SORT_TYPE = ["Comment", "Date", "Share", "Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow", "Total Reactions"]
 
     if request.method == "POST":
         selected_reaction = request.form.getlist("reaction_check")
@@ -167,10 +175,10 @@ def explore():
         
         reference = []
         for category in selected_category:
-            reference.append(list(data[data[category] == 1]["Reference"]))
+            reference.append(list(data_total[data_total[category] == 1]["Reference"]))
             
         flat_list = [item for sublist in reference for item in sublist]
-        temp_data = data[data["Reference"].isin(flat_list)]
+        temp_data = data_total[data_total["Reference"].isin(flat_list)]
         
         if (len(selected_reaction) != 0):
             reference = []
@@ -180,7 +188,7 @@ def explore():
         flat_list = [item for sublist in reference for item in sublist]
             
         subset_data = temp_data[temp_data["Reference"].isin(flat_list)]
-        subset_data = subset_data.loc[:,["Content", "Comment", "Share", "Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow", "Total Reactions", "Category"]]
+        subset_data = subset_data.loc[:,["Content", "Date", "Comment", "Share", "Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow", "Total Reactions", "Category"]]
         subset_data = subset_data.drop_duplicates().reset_index().drop("index", axis=1)
 
         subset_data = subset_data.sort_values(by=[selected_sorting], ascending=False)

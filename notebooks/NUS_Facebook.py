@@ -24,7 +24,7 @@ import os
 import sys
 from pandas.core.common import flatten
 
-os.chdir("C:\\Users\\joann\\OneDrive\\Desktop\\NUSWhispers Scrapper")
+os.chdir("C:\\Users\\joann\\OneDrive\\Desktop\\My Files\\Github\\NUSWhispers Scrapper")
 
 # setting up options
 chrome_options = webdriver.ChromeOptions()
