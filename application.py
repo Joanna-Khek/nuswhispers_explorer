@@ -48,7 +48,9 @@ Session(app)
 data_total = pd.read_pickle("pickle/main_data.pkl")
 data_clean = pd.read_pickle("pickle/corpus.pkl")
 data_clean_reactions = pd.read_pickle("pickle/corpus_reactions.pkl")
+data_month = pd.read_csv("data/month_mapper.csv")
 month = datetime.now().month - 1
+data_month = data_month.set_index("Month").T.to_dict("list")
 
 data_total = data_total.rename(columns={"Date_Clean": "Date"})
 
@@ -59,12 +61,22 @@ data_total["Share"] = data_total["Share"].apply(lambda x: int(x))
 
 data = data_total[data_total["Month"] == month]
 
+# Date now
+date_now = datetime.now()
+day_now = date_now.day
+month_now = date_now.month
+year_now = date_now.year
+
+month_now = data_month[month_now][0]
+month_previous = data_month[month][0]
+
 @app.route("/")
 def index():
     # Total Confessions
-    TOTAL_CONFESSIONS = data_total.shape[0]
+    TOTAL_CONFESSIONS = data.shape[0]
     TOTAL_MONTH = data.shape[0]
-    return render_template('index.html', total_confessions=TOTAL_CONFESSIONS, total_month=TOTAL_MONTH)
+    return render_template('index.html', total_confessions=TOTAL_CONFESSIONS, total_month=TOTAL_MONTH, day=day_now, 
+                           month=month_now, year=year_now, previous_month=month_previous)
 
 @app.route("/dashboard")
 def dashboard():
@@ -109,26 +121,33 @@ def dashboard():
     
     # Post with max reactions
     POST_MAX_REACTIONS = data.loc[data["Total Reactions"] == MAX_REACTIONS]["Content"].values[0]
-    
+
     # Most angry post
+    MAX_ANGRY = data["Angry"].max()
     POST_ANGRY = data.loc[data["Angry"] == data["Angry"].max()]["Content"].values[0]
     
     # Most caring post
+    MAX_CARE = data["Care"].max()
     POST_CARE = data.loc[data["Care"] == data["Care"].max()]["Content"].values[0]
     
     # Most haha post
+    MAX_HAHA =  data["Haha"].max()
     POST_HAHA = data.loc[data["Haha"] == data["Haha"].max()]["Content"].values[0]
     
     # Most like post
+    MAX_LIKE = data["Like"].max()
     POST_LIKE = data.loc[data["Like"] == data["Like"].max()]["Content"].values[0]
     
     # Most love post
+    MAX_LOVE = data["Love"].max()
     POST_LOVE = data.loc[data["Love"] == data["Love"].max()]["Content"].values[0]
     
     # Most sad post
+    MAX_SAD = data["Sad"].max()
     POST_SAD = data.loc[data["Sad"] == data["Sad"].max()]["Content"].values[0]
     
     # Most wow post
+    MAX_WOW = data["Wow"].max()
     POST_WOW = data.loc[data["Wow"] == data["Wow"].max()]["Content"].values[0]
     
     
@@ -148,7 +167,14 @@ def dashboard():
                              post_like = POST_LIKE,
                              post_love = POST_LOVE,
                              post_sad = POST_SAD,
-                             post_wow = POST_WOW
+                             post_wow = POST_WOW,
+                             max_angry = MAX_ANGRY,
+                             max_care = MAX_CARE,
+                             max_like = MAX_LIKE,
+                             max_haha = MAX_HAHA,
+                             max_love = MAX_LOVE,
+                             max_sad = MAX_SAD,
+                             max_wow = MAX_WOW
                              )
 
 @app.route("/explore", methods=['GET', 'POST'])
@@ -175,10 +201,10 @@ def explore():
         
         reference = []
         for category in selected_category:
-            reference.append(list(data_total[data_total[category] == 1]["Reference"]))
+            reference.append(list(data[data[category] == 1]["Reference"]))
             
         flat_list = [item for sublist in reference for item in sublist]
-        temp_data = data_total[data_total["Reference"].isin(flat_list)]
+        temp_data = data[data["Reference"].isin(flat_list)]
         
         if (len(selected_reaction) != 0):
             reference = []

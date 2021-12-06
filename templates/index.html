@@ -21,7 +21,7 @@
     <div class="alert alert-info d-flex align-items-center" role="alert">
       <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
       <div>
-        Latest {{total_confessions}} confessions scrapped on 3 September 2021
+        Updated on {{day}} {{month}} {{year}}
       </div>
     </div>
 
@@ -34,7 +34,7 @@
         <p class="card-text">Please view in desktop fullscreen for best viewing experience!</p>
         
         <h5 class="card-title">Scope of Analysis</h5>
-        <p class="card-text">Latest {{total_confessions}} confessions available for viewing in 'Explore' section <br> 'Analysis' and 'Dashboard' section are based on the recent {{total_month}} confessions scrapped for month of August</p>
+        <p class="card-text">{{total_confessions}} confessions for the month of {{previous_month}}</p>
         
         <h5 class="card-title">Update Frequency</h5>
         <p class="card-text">Data will be scraped on every first week of the month</p>
