@@ -174,7 +174,8 @@ def dashboard():
                              max_haha = MAX_HAHA,
                              max_love = MAX_LOVE,
                              max_sad = MAX_SAD,
-                             max_wow = MAX_WOW
+                             max_wow = MAX_WOW,
+                             previous_month=month_previous
                              )
 
 @app.route("/explore", methods=['GET', 'POST'])
@@ -512,7 +513,8 @@ def analysis():
                            dot_plot_graph_4 = DOT_PLOT_GRAPH_4,
                            hist_comments = div1,
                            hist_shares = div2,
-                           hist_reactions = div3)
+                           hist_reactions = div3,
+                           previous_month=month_previous)
 
    
 if __name__ == "__main__":
