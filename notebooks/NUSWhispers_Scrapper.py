@@ -52,7 +52,7 @@ ls_shares = []
 def extract_header(header, ls_category):
     for i in range(0, len(header)):
         temp_header = []
-        header_words = header[i].find_all("span", class_="ng-binding ng-scope")
+        header_words = header[i].find_all("span", class_="ng-binding")
         
         for j in range(0, len(header_words)):
             category = header_words[j].getText().replace("\n", "").replace(",", "")

@@ -81,7 +81,7 @@ def extract_details(start_num, last_num, first_table, see_more, ls_content, ls_r
         print("Last_num: {}".format(last_num))
     
         try:
-            body_table = first_table[i].find_all("div", class_="ecm0bbzt hv4rvrfc e5nlhep0 dati1w0a")[0]
+            body_table = first_table[i].find_all("div", class_="ecm0bbzt hv4rvrfc dati1w0a e5nlhep0")[0]
         except:
             # non-text confessions
             print("Error in body table. Skipping Iteration")
@@ -94,7 +94,7 @@ def extract_details(start_num, last_num, first_table, see_more, ls_content, ls_r
             reaction_status = "No"
             
         try:
-            comments_table = first_table[i].find_all("span", class_="d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d3f4x2em fe6kdd0r mau55g9w c8b282yb iv3no6db jq4qci2q a3bd9o3v b1v8xokw m9osqain")
+            comments_table = first_table[i].find_all("span", class_="d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j fe6kdd0r mau55g9w c8b282yb keod5gw0 nxhoafnm aigsh9s9 d3f4x2em iv3no6db jq4qci2q a3bd9o3v b1v8xokw m9osqain")
         except:
             print("Comment Status: No")
             comments_status = "No"
@@ -140,7 +140,7 @@ def extract_details(start_num, last_num, first_table, see_more, ls_content, ls_r
         second_table = soup.find_all("div", class_="du4w35lb k4urcfbm l9j0dhe7 sjgh65i0")
         print("Length of second table: {}".format(len(second_table)))
         
-        body_table = second_table[i].find_all("div", class_="ecm0bbzt hv4rvrfc e5nlhep0 dati1w0a")[0]
+        body_table = second_table[i].find_all("div", class_="ecm0bbzt hv4rvrfc dati1w0a e5nlhep0")[0]
         
         content_words = body_table.find_all("div", class_="j83agx80 cbu4d94t ew0dbk1b irj2b8pg")[0].getText()
         try:
@@ -180,7 +180,7 @@ count = 1
 last_num = [0]
 
 print("Executing 'See More'")
-see_more = "div[class*='oajrlxb2 g5ia77u1 qu0x051f esr5mh6w e9989ue4 r7d6kgcz rq0escxv nhd2j8a9 nc684nl6 p7hjln8o kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x jb3vyjys rz4wbd8a qt6c0cv9 a8nywdso i1ao9s8h esuyzwwr f1sip0of lzcic4wl oo9gr5id gpro0wi8 lrazzd5p']"
+see_more = "div[class*='oajrlxb2 g5ia77u1 qu0x051f esr5mh6w e9989ue4 r7d6kgcz rq0escxv nhd2j8a9 nc684nl6 p7hjln8o kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x jb3vyjys rz4wbd8a qt6c0cv9 a8nywdso i1ao9s8h esuyzwwr f1sip0of lzcic4wl gpro0wi8 oo9gr5id lrazzd5p']"
 driver.find_elements_by_css_selector(see_more)[1].click()
     
 while True:

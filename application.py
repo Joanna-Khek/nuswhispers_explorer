@@ -50,6 +50,8 @@ data_clean = pd.read_pickle("pickle/corpus.pkl")
 data_clean_reactions = pd.read_pickle("pickle/corpus_reactions.pkl")
 data_month = pd.read_csv("data/month_mapper.csv")
 month = datetime.now().month - 1
+if month == 0:
+    month = 12
 data_month = data_month.set_index("Month").T.to_dict("list")
 
 data_total = data_total.rename(columns={"Date_Clean": "Date"})
