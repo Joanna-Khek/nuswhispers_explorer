@@ -44,12 +44,12 @@ main_window = driver.window_handles[0]
 print("Logging in...")
 time.sleep(1)
 soup = BeautifulSoup(driver.page_source, "html.parser")
-
+               
 inputElement = driver.find_element_by_id("email")
-inputElement.send_keys('sender.test.08@gmail.com')
+inputElement.send_keys(os.environ.get("FACEBOOK_USER"))
 
 inputElement = driver.find_element_by_id("pass")
-inputElement.send_keys("P@55w0rd!123")
+inputElement.send_keys(os.environ.get("FACEBOOK_PASSWORD"))
 
 driver.find_elements_by_css_selector("button[type*='submit']")[0].click()
 time.sleep(1)
