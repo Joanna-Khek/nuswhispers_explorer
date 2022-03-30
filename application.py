@@ -4,6 +4,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 
+
 import pandas as pd
 import numpy as np
 import spacy
@@ -23,6 +24,7 @@ import io
 import base64
 from base64 import b64encode
 from datetime import datetime
+
 
 # Configure application
 app = Flask(__name__)
@@ -241,7 +243,7 @@ def analysis():
                    "tell", "thing", "say", "make", "come", "ask", "feel", "student", "s"]
     stopwords_list = text.ENGLISH_STOP_WORDS.union(add_stop_words)
     
-    full_names = ['Advice', 'Ask Prof Ben', 'Funny', 'Lost and Found', 'Nostalgia', 'Rant', 'Romance']
+    full_names = ['Advice', 'Ask Prof Ben', 'Funny', 'Nostalgia', 'Rant', 'Romance']
 
     def setListOfcolor_func(word=None, font_size=None, position=None, orientation=None, font_path=None, random_state=None):  
         #define the list of set colors  
@@ -331,7 +333,7 @@ def analysis():
     
 
     # Average Comments, Shares, Reactions
-    cat_col = ["Advice", "Ask Prof Ben", "Funny", "Lost and Found", "Nostalgia", "Rant", "Romance"]
+    cat_col = ["Advice", "Ask Prof Ben", "Funny", "Nostalgia", "Rant", "Romance"]
     
     comment_list = []
     share_list = []
@@ -373,7 +375,7 @@ def analysis():
     advice = data[data["Advice"] == 1]
     askprofben = data[data["Ask Prof Ben"] == 1]
     funny = data[data["Funny"] == 1]
-    lostandfound = data[data["Lost and Found"] == 1]
+    #lostandfound = data[data["Lost and Found"] == 1]
     nostalgia = data[data["Nostalgia"] == 1]
     rant = data[data["Rant"] == 1]
     romance = data[data["Romance"] == 1]
@@ -388,8 +390,8 @@ def analysis():
     df3 = funny.loc[:, ["Comment", "Share", "Total Reactions"]]
     df3["Category"] = "Funny"
     
-    df4 = lostandfound.loc[:, ["Comment", "Share", "Total Reactions"]]
-    df4["Category"] = "Lost and Found"
+    #df4 = lostandfound.loc[:, ["Comment", "Share", "Total Reactions"]]
+    #df4["Category"] = "Lost and Found"
     
     df5 = nostalgia.loc[:, ["Comment", "Share", "Total Reactions"]]
     df5["Category"] = "Nostalgia"
@@ -405,7 +407,7 @@ def analysis():
     
     final_df = df1.append(df2)
     final_df = final_df.append(df3)
-    final_df = final_df.append(df4)
+    #final_df = final_df.append(df4)
     final_df = final_df.append(df5)
     final_df = final_df.append(df6)
     final_df = final_df.append(df7)
@@ -416,7 +418,7 @@ def analysis():
     box_plot.add("Advice", list(final_df[final_df["Category"] == "Advice"]["Comment"]))
     box_plot.add("Ask Prof Ben", list(final_df[final_df["Category"] == "Ask Prof Ben"]["Comment"]))
     box_plot.add("Funny", list(final_df[final_df["Category"] == "Funny"]["Comment"]))
-    box_plot.add("Lost and Found", list(final_df[final_df["Category"] == "Lost and Found"]["Comment"]))
+    #box_plot.add("Lost and Found", list(final_df[final_df["Category"] == "Lost and Found"]["Comment"]))
     box_plot.add("Nostalgia", list(final_df[final_df["Category"] == "Nostalgia"]["Comment"]))
     box_plot.add("Rant", list(final_df[final_df["Category"] == "Rant"]["Comment"]))
     box_plot.add("Romance", list(final_df[final_df["Category"] == "Romance"]["Comment"]))
@@ -428,7 +430,7 @@ def analysis():
     box_plot.add("Advice", list(final_df[final_df["Category"] == "Advice"]["Share"]))
     box_plot.add("Ask Prof Ben", list(final_df[final_df["Category"] == "Ask Prof Ben"]["Share"]))
     box_plot.add("Funny", list(final_df[final_df["Category"] == "Funny"]["Comment"]))
-    box_plot.add("Lost and Found", list(final_df[final_df["Category"] == "Lost and Found"]["Share"]))
+    #box_plot.add("Lost and Found", list(final_df[final_df["Category"] == "Lost and Found"]["Share"]))
     box_plot.add("Nostalgia", list(final_df[final_df["Category"] == "Nostalgia"]["Share"]))
     box_plot.add("Rant", list(final_df[final_df["Category"] == "Rant"]["Share"]))
     box_plot.add("Romance", list(final_df[final_df["Category"] == "Romance"]["Share"]))
@@ -440,7 +442,7 @@ def analysis():
     box_plot.add("Advice", list(final_df[final_df["Category"] == "Advice"]["Total Reactions"]))
     box_plot.add("Ask Prof Ben", list(final_df[final_df["Category"] == "Ask Prof Ben"]["Total Reactions"]))
     box_plot.add("Funny", list(final_df[final_df["Category"] == "Funny"]["Total Reactions"]))
-    box_plot.add("Lost and Found", list(final_df[final_df["Category"] == "Lost and Found"]["Total Reactions"]))
+    #box_plot.add("Lost and Found", list(final_df[final_df["Category"] == "Lost and Found"]["Total Reactions"]))
     box_plot.add("Nostalgia", list(final_df[final_df["Category"] == "Nostalgia"]["Total Reactions"]))
     box_plot.add("Rant", list(final_df[final_df["Category"] == "Rant"]["Total Reactions"]))
     box_plot.add("Romance", list(final_df[final_df["Category"] == "Romance"]["Total Reactions"]))
@@ -458,8 +460,8 @@ def analysis():
     df3 = funny.loc[:, ["Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow"]]
     df3["Category"] = "Funny"
     
-    df4 = lostandfound.loc[:, ["Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow"]]
-    df4["Category"] = "Lost and Found"
+    #df4 = lostandfound.loc[:, ["Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow"]]
+    #df4["Category"] = "Lost and Found"
     
     df5 = nostalgia.loc[:, ["Angry", "Care", "Haha", "Like", "Love", "Sad", "Wow"]]
     df5["Category"] = "Nostalgia"
@@ -475,7 +477,7 @@ def analysis():
 
     final_df = df1.append(df2)
     final_df = final_df.append(df3)
-    final_df = final_df.append(df4)
+    #final_df = final_df.append(df4)
     final_df = final_df.append(df5)
     final_df = final_df.append(df6)
     final_df = final_df.append(df7)
