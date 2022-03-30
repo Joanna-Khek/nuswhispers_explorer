@@ -1,7 +1,7 @@
 # NUSWhispers Explorer Web Application
 Web Application: https://nuswhispers-explorer.herokuapp.com/
 
-***Note: The web application might not load up due to exceeding the free dyno hours usually towards end of a month.**
+***Note: The web application might not load due to exceeding the free dyno hours usually towards end of a month.**
 
 ## Project Description
 As an avid NUSWhispers reader, I wanted to know what are the top confessions for each month based on the reactions. As such, I wrote a web scraping script to scrape from [NUSWhispers Facebook](https://www.facebook.com/nuswhispers/) site to gather the reactions from the readers. 
